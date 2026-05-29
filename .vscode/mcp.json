@@ -1,0 +1,27 @@
+{
+	"servers": {
+		"next-devtools": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"next-devtools-mcp@latest"
+			],
+			"cwd": "${input:cwd}",
+			"envFile": "${input:envFile}",
+			"sandboxEnabled": false,
+			"type": "stdio"
+		}
+	},
+	"inputs": [
+		{
+			"id": "cwd",
+			"type": "promptString",
+			"description": "Working Directory"
+		},
+		{
+			"id": "envFile",
+			"type": "promptString",
+			"description": "Environment Variables File"
+		}
+	]
+}
