@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Ryu
 
-First, run the development server:
+Ứng dụng demo liệt kê và upload blob lên Azure Blob Storage bằng NextJS (TypeScript).
+
+## Yêu cầu
+- `Node.js`
+
+## Cài đặt nhanh (khi pull code xuống)
+
+1. Clone dự án:
+
+```bash
+git clone --single-branch --branch azure-blob https://github.com/HungLM44/ryu.git
+cd ryu
+```
+
+2. Cài dependencies:
+
+```bash
+npm install
+```
+
+3. Tạo file `.env` có nội dung giống với file `.env.example`
+
+- Lấy `AZURE_BLOB_CONNECTION_STRING` từ `Azure Portal → Resource Group → <My Resource Group>  → <My storage account>  → Security and network  → Access key` để lấy `Connection string`. 
+- Lấy `AZURE_BLOB_CONTAINER_NAME` từ `Azure Portal → Resource Group → <My Resource Group>  → <My storage account>  → Container` để lấy tên của container muốn kết nối.
+
+4. Chạy ở chế độ phát triển:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở http://localhost:3000 và trang quản lý blob tại `/azure-blob`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Endpoint API chính
+- `GET /api/azure-blob` — trả về danh sách tên blob (JSON).
+- `POST /api/azure-blob` — upload blob mới. Body JSON request: `{ "name": "...", "content": "..." }`.
+- `GET /api/health` — trạng thái server.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## File quan trọng
+- Logic tương tác với Azure: [lib/blobService.ts](lib/blobService.ts)
+- API Azure Blob: [app/api/azure-blob/route.ts](app/api/azure-blob/route.ts)
+- Giao diện quản lý blob: [app/azure-blob/page.tsx](app/azure-blob/page.tsx)
+- Dialog upload: [app/azure-blob/UploadBlobDialog.tsx](app/azure-blob/UploadBlob.tsx)
 
-## Learn More
+## Lỗi thường gặp
+- Nếu ứng dụng ném lỗi: "Azure Blob connection string is not provided..." → kiểm tra `.env` và chạy lại
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev
+```
