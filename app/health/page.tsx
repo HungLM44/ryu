@@ -27,43 +27,42 @@ const HealthPage = () => {
   }, [])
 
   return (
-    <main style={{ padding: 20, fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, sans-serif' }}>
-      <h1>Server Health</h1>
+    <main className="p-5 font-sans text-gray-900 dark:text-gray-100">
+      <h1 className="text-2xl font-semibold mb-4">Server Health</h1>
 
-      
-      {error && <p style={{ color: 'crimson' }}>Error: {error}</p>}
+      {error && <p className="text-red-600">Error: {error}</p>}
 
       {health && (
         <>
-          <section>
-            <h2>Overview</h2>
-            <p>Status: {health.status}</p>
-            <p>Timestamp: {health.timestamp}</p>
-            <p>Uptime: {health.uptimeSeconds} s</p>
-            <p>Node: {health.nodeVersion}</p>
+          <section className="mb-6">
+            <h2 className="text-lg font-medium mb-2">Overview</h2>
+            <p>Status: <span className="font-mono">{health.status}</span></p>
+            <p>Timestamp: <span className="font-mono">{health.timestamp}</span></p>
+            <p>Uptime: <span className="font-mono">{health.uptimeSeconds} s</span></p>
+            <p>Node: <span className="font-mono">{health.nodeVersion}</span></p>
           </section>
 
-          <section>
-            <h2>Memory</h2>
-            <ul>
-              <li>RSS: {formatBytes(health.memory.rss)}</li>
-              <li>Heap total: {formatBytes(health.memory.heapTotal)}</li>
-              <li>Heap used: {formatBytes(health.memory.heapUsed)}</li>
-              <li>External: {formatBytes(health.memory.external)}</li>
-              <li>ArrayBuffers: {formatBytes(health.memory.arrayBuffers)}</li>
+          <section className="mb-6">
+            <h2 className="text-lg font-medium mb-2">Memory</h2>
+            <ul className="list-disc list-inside space-y-1">
+              <li>RSS: <span className="font-mono">{formatBytes(health.memory.rss)}</span></li>
+              <li>Heap total: <span className="font-mono">{formatBytes(health.memory.heapTotal)}</span></li>
+              <li>Heap used: <span className="font-mono">{formatBytes(health.memory.heapUsed)}</span></li>
+              <li>External: <span className="font-mono">{formatBytes(health.memory.external)}</span></li>
+              <li>ArrayBuffers: <span className="font-mono">{formatBytes(health.memory.arrayBuffers)}</span></li>
             </ul>
           </section>
 
-          <section>
-            <h2>System</h2>
-            <ul>
-              <li>Hostname: {health.system.hostname}</li>
-              <li>Platform: {health.system.platform}</li>
-              <li>Arch: {health.system.arch}</li>
-              <li>CPU count: {health.system.cpuCount}</li>
-              <li>Load avg: {health.system.loadAverage.join(', ')}</li>
-              <li>Free: {formatBytes(health.system.freeMemory)}</li>
-              <li>Total: {formatBytes(health.system.totalMemory)}</li>
+          <section className="mb-6">
+            <h2 className="text-lg font-medium mb-2">System</h2>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Hostname: <span className="font-mono">{health.system.hostname}</span></li>
+              <li>Platform: <span className="font-mono">{health.system.platform}</span></li>
+              <li>Arch: <span className="font-mono">{health.system.arch}</span></li>
+              <li>CPU count: <span className="font-mono">{health.system.cpuCount}</span></li>
+              <li>Load avg: <span className="font-mono">{health.system.loadAverage.join(', ')}</span></li>
+              <li>Free: <span className="font-mono">{formatBytes(health.system.freeMemory)}</span></li>
+              <li>Total: <span className="font-mono">{formatBytes(health.system.totalMemory)}</span></li>
             </ul>
           </section>
         </>
